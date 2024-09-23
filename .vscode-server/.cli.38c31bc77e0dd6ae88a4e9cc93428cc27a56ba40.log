@@ -1,0 +1,10 @@
+Listening on 127.0.0.1:36709
+[2024-09-23 13:58:38] info Disposed of connection to running server.
+looking for token 4c6b5ab8-9d7d-4896-9baa-4bfa616b29b5, got Some("4c6b5ab8-9d7d-4896-9baa-4bfa616b29b5")
+[2024-09-23 13:58:38] info Checking /home/students/220110101/.vscode-server/cli/servers/Stable-38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40/log.txt and /home/students/220110101/.vscode-server/cli/servers/Stable-38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40/pid.txt for a running server...
+[2024-09-23 13:58:38] info Found running server (pid=894397)
+[2024-09-23 13:58:39] info Disposed of connection to running server.
+looking for token 4c6b5ab8-9d7d-4896-9baa-4bfa616b29b5, got Some("4c6b5ab8-9d7d-4896-9baa-4bfa616b29b5")
+[2024-09-23 13:58:39] info Checking /home/students/220110101/.vscode-server/cli/servers/Stable-38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40/log.txt and /home/students/220110101/.vscode-server/cli/servers/Stable-38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40/pid.txt for a running server...
+[2024-09-23 13:58:39] info Found running server (pid=894397)
+[2024-09-23 13:58:40] info Disposed of connection to running server.

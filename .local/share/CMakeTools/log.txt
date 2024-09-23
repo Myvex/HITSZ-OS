@@ -1,0 +1,14 @@
+2024-09-23T13:47:33.999Z [info] [proc] 执行命令: /usr/bin/cmake --version
+2024-09-23T13:47:34.044Z [info] [proc] 执行命令: /usr/bin/cmake -E capabilities
+2024-09-23T13:47:34.112Z [debug] [main] 安全构造新的 CMakeProject 实例
+2024-09-23T13:47:34.113Z [debug] [variant] 构造 VariantManager
+2024-09-23T13:47:34.114Z [debug] [main] 构造新的 CMakeProject 实例
+2024-09-23T13:47:34.115Z [debug] [main] 正在启动 CMake 工具第二阶段初始化
+2024-09-23T13:47:34.116Z [debug] [expand] 已展开 ${workspaceFolder}
+2024-09-23T13:47:34.121Z [debug] [kit] 未读取不存在的工具包文件: /home/students/220110101/.local/share/CMakeTools/cmake-tools-kits.json
+2024-09-23T13:47:34.124Z [debug] [kit] 未读取不存在的工具包文件: /home/students/220110101/.vscode/cmake-kits.json
+2024-09-23T13:47:34.236Z [info] [variant] 已加载一组新变量
+2024-09-23T13:47:34.283Z [debug] [main] CMakeProject 实例初始化完成。
+2024-09-23T13:47:34.392Z [debug] [main] 未启动 CMake 驱动程序: 未选择任何工具包
+2024-09-23T13:47:39.093Z [debug] [main] 未启动 CMake 驱动程序: 未选择任何工具包
+2024-09-23T13:49:52.089Z [debug] [extension] 停用 CMakeTools

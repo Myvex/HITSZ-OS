@@ -1,0 +1,55 @@
+2024-09-23 13:56:27.857 [info] 
+
+
+
+
+2024-09-23 13:56:27.878 [info] Extension host agent started.
+2024-09-23 13:56:27.969 [info] Started initializing default profile extensions in extensions installation folder. file:///home/students/220110101/.vscode-server/extensions
+2024-09-23 13:56:27.987 [info] Completed initializing default profile extensions in extensions installation folder. file:///home/students/220110101/.vscode-server/extensions
+2024-09-23 13:56:28.024 [info] [<unknown>][7c53e7e3][ExtensionHostConnection] New connection established.
+2024-09-23 13:56:28.025 [info] [<unknown>][6993bafb][ManagementConnection] New connection established.
+2024-09-23 13:56:28.116 [info] [<unknown>][7c53e7e3][ExtensionHostConnection] <894428> Launched Extension Host Process.
+2024-09-23 13:56:28.182 [info] Installing extensions...
+2024-09-23 13:56:28.765 [error] Error while installing extensions: AggregateError [ETIMEDOUT]: 
+2024-09-23 13:56:28.766 [error] Failed: AggregateError [ETIMEDOUT]: 
+    at Y.E (/home/students/220110101/.vscode-server/cli/servers/Stable-38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40/server/out/vs/server/node/server.main.js:180:120176)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Y.C (/home/students/220110101/.vscode-server/cli/servers/Stable-38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40/server/out/vs/server/node/server.main.js:180:116903)
+    at async Y.z (/home/students/220110101/.vscode-server/cli/servers/Stable-38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40/server/out/vs/server/node/server.main.js:180:113405)
+    at async Y.getExtensions (/home/students/220110101/.vscode-server/cli/servers/Stable-38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40/server/out/vs/server/node/server.main.js:180:112507)
+    at async a.j (/home/students/220110101/.vscode-server/cli/servers/Stable-38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40/server/out/vs/server/node/server.main.js:153:1487)
+    at async a.g (/home/students/220110101/.vscode-server/cli/servers/Stable-38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40/server/out/vs/server/node/server.main.js:152:11354)
+    at async a.installExtensions (/home/students/220110101/.vscode-server/cli/servers/Stable-38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40/server/out/vs/server/node/server.main.js:152:9860)
+    at async g.q (/home/students/220110101/.vscode-server/cli/servers/Stable-38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40/server/out/vs/server/node/server.main.js:188:18614)
+    at async g.k (/home/students/220110101/.vscode-server/cli/servers/Stable-38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40/server/out/vs/server/node/server.main.js:188:17424)
+    at async g.scanExtensions (/home/students/220110101/.vscode-server/cli/servers/Stable-38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40/server/out/vs/server/node/server.main.js:188:17279)
+    at async a.call (/home/students/220110101/.vscode-server/cli/servers/Stable-38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40/server/out/vs/server/node/server.main.js:188:20388)
+2024-09-23 13:56:30.606 [info] [<unknown>][a5b493f7][ExtensionHostConnection] New connection established.
+2024-09-23 13:56:30.610 [info] [<unknown>][a5b493f7][ExtensionHostConnection] <894499> Launched Extension Host Process.
+2024-09-23 13:58:21.843 [info] [<unknown>][888e01ae][ManagementConnection] New connection established.
+2024-09-23 13:58:21.866 [info] Installing extensions...
+2024-09-23 13:58:23.445 [info] Installing extension 'ms-ceintl.vscode-language-pack-zh-hans'...
+2024-09-23 13:58:24.199 [info] Getting Manifest... ms-ceintl.vscode-language-pack-zh-hans
+2024-09-23 13:58:24.242 [info] Installing extension: ms-ceintl.vscode-language-pack-zh-hans {"isMachineScoped":true,"isBuiltin":false,"installGivenVersion":false,"isApplicationScoped":true,"installOnlyNewlyAddedFromExtensionPack":true,"profileLocation":{"$mid":1,"fsPath":"/home/students/220110101/.vscode-server/extensions/extensions.json","external":"file:///home/students/220110101/.vscode-server/extensions/extensions.json","path":"/home/students/220110101/.vscode-server/extensions/extensions.json","scheme":"file"},"productVersion":{"version":"1.93.1","date":"2024-09-11T17:20:05.685Z"}}
+2024-09-23 13:58:25.969 [info] Extension signature verification result for ms-ceintl.vscode-language-pack-zh-hans: UnknownError. Executed: false. Duration: 214ms.
+2024-09-23 13:58:26.570 [info] Extracted extension to file:///home/students/220110101/.vscode-server/extensions/ms-ceintl.vscode-language-pack-zh-hans-1.93.2024091109: ms-ceintl.vscode-language-pack-zh-hans
+2024-09-23 13:58:26.579 [info] Renamed to /home/students/220110101/.vscode-server/extensions/ms-ceintl.vscode-language-pack-zh-hans-1.93.2024091109
+2024-09-23 13:58:26.593 [info] Adding language packs from the extension ms-ceintl.vscode-language-pack-zh-hans
+2024-09-23 13:58:26.619 [info] Extension installed successfully: ms-ceintl.vscode-language-pack-zh-hans file:///home/students/220110101/.vscode-server/extensions/extensions.json
+2024-09-23 13:58:26.620 [info] Extension 'ms-ceintl.vscode-language-pack-zh-hans' v1.93.2024091109 was successfully installed.
+2024-09-23 13:58:29.177 [info] [<unknown>][6993bafb][ManagementConnection] The client has disconnected gracefully, so the connection will be disposed.
+2024-09-23 13:58:29.216 [info] [<unknown>][7c53e7e3][ExtensionHostConnection] <894428> Extension Host Process exited with code: 0, signal: null.
+2024-09-23 13:58:29.217 [info] Cancelling previous shutdown timeout
+2024-09-23 13:58:29.252 [info] [<unknown>][888e01ae][ManagementConnection] The client has disconnected gracefully, so the connection will be disposed.
+2024-09-23 13:58:38.879 [info] [<unknown>][da60da84][ManagementConnection] New connection established.
+2024-09-23 13:58:38.885 [info] [<unknown>][03ddfba7][ExtensionHostConnection] New connection established.
+2024-09-23 13:58:38.889 [info] [<unknown>][03ddfba7][ExtensionHostConnection] <894883> Launched Extension Host Process.
+2024-09-23 13:58:39.259 [info] [<unknown>][221dd920][ManagementConnection] New connection established.
+2024-09-23 13:58:39.260 [info] [<unknown>][ca9e54ee][ExtensionHostConnection] New connection established.
+2024-09-23 13:58:39.264 [info] [<unknown>][ca9e54ee][ExtensionHostConnection] <894907> Launched Extension Host Process.
+2024-09-23 13:58:40.253 [info] [<unknown>][221dd920][ManagementConnection] The client has disconnected gracefully, so the connection will be disposed.
+2024-09-23 13:58:40.327 [info] [<unknown>][ca9e54ee][ExtensionHostConnection] <894907> Extension Host Process exited with code: 0, signal: null.
+2024-09-23 14:03:39.109 [info] [<unknown>][a5b493f7][ExtensionHostConnection] <894499> Extension Host Process exited with code: 0, signal: null.
+2024-09-23 14:03:39.114 [error] Error: Unexpected SIGPIPE
+    at process.<anonymous> (/home/students/220110101/.vscode-server/cli/servers/Stable-38c31bc77e0dd6ae88a4e9cc93428cc27a56ba40/server/out/vs/server/node/server.main.js:198:6390)
+    at process.emit (node:events:531:35)

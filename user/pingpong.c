@@ -28,7 +28,7 @@ int main(int argc,char* argv[])
         char buf[5];
         read(c2f[0], buf, 4);  // 从子进程读取 "pong"
         buf[4] = '\0';  // 确保字符串以 NULL 结尾
-        printf("%d: received %s from pid %d\n", parent_pid, buf, child_pid);
+        printf("%d: received %s from pid %d\n", getpid(), buf, child_pid);
         close(c2f[0]);  // 关闭子进程读取端
 
         wait(0);  // 等待子进程结束

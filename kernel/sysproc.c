@@ -18,10 +18,24 @@ uint64 sys_getpid(void) { return myproc()->pid; }
 
 uint64 sys_fork(void) { return fork(); }
 
+// uint64 sys_wait(void) {
+//   uint64 p;
+//   if (argaddr(0, &p) < 0) return -1;
+//   return wait(p);
+// }
+
 uint64 sys_wait(void) {
-  uint64 p;
-  if (argaddr(0, &p) < 0) return -1;
-  return wait(p);
+    uint64 p;     // 存储退出状态的地址
+    int flags;    // 用于存储 flags 参数
+
+    // 获取存储状态的地址
+    if (argaddr(0, &p) < 0) return -1;
+
+    // 获取 flags 参数（假设它是第一个参数）
+    if (argint(1, &flags) < 0) return -1;
+
+    // 调用 wait 函数并返回结果
+    return wait(p, flags); // 传递状态地址和 flags
 }
 
 uint64 sys_sbrk(void) {
@@ -80,4 +94,9 @@ uint64 sys_rename(void) {
   memmove(p->name, name, len);
   p->name[len] = '\0';
   return 0;
+}
+
+uint64 sys_yield(void) {
+    yield();
+    return 0; // 系统调用没有返回值
 }

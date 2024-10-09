@@ -266,12 +266,21 @@ int fork(void) {
 
   return pid;
 }
-
+const char* get_procstate_name(enum procstate state) {
+    switch(state) {
+        case UNUSED:    return "UNUSED";
+        case SLEEPING:  return "sleep";
+        case RUNNABLE:  return "runble";
+        case RUNNING:   return "run";
+        case ZOMBIE:    return "ZOMBIE";
+        default:        return "UNKNOWN";
+    }
+}
 // Pass p's abandoned children to init.
 // Caller must hold p->lock.
 void reparent(struct proc *p) {
   struct proc *pp;
-
+  int cnt=0;
   for (pp = proc; pp < &proc[NPROC]; pp++) {
     // this code uses pp->parent without holding pp->lock.
     // acquiring the lock first could cause a deadlock
@@ -282,6 +291,8 @@ void reparent(struct proc *p) {
       // because only the parent changes it, and we're the parent.
       acquire(&pp->lock);
       pp->parent = initproc;
+      exit_info("proc %d exit, child %d, pid %d, name %s, state %s\n", p->pid,cnt,pp->pid,pp->name,get_procstate_name(pp->state));
+      cnt++;
       // we should wake up init here, but that would require
       // initproc->lock, which would be a deadlock, since we hold
       // the lock on one of init's children (pp). this is why
@@ -330,6 +341,7 @@ void exit(int status) {
   // as anything else.
   acquire(&p->lock);
   struct proc *original_parent = p->parent;
+  exit_info("proc %d exit, parent pid %d, name %s, state %s\n", p->pid,p->parent->pid,p->parent->name,get_procstate_name(p->parent->state));
   release(&p->lock);
 
   // we need the parent's lock in order to wake it up from wait().
@@ -356,7 +368,7 @@ void exit(int status) {
 
 // Wait for a child process to exit and return its pid.
 // Return -1 if this process has no children.
-int wait(uint64 addr) {
+int wait(uint64 addr,int flags) {
   struct proc *np;
   int havekids, pid;
   struct proc *p = myproc();
@@ -400,6 +412,12 @@ int wait(uint64 addr) {
       return -1;
     }
 
+    if(flags==1)
+    {
+      release(&p->lock);
+      return -1;
+    }
+
     // Wait for a child to exit.
     sleep(p, &p->lock);  // DOC: wait-sleep
   }
@@ -412,10 +430,10 @@ int wait(uint64 addr) {
 //  - swtch to start running that process.
 //  - eventually that process transfers control
 //    via swtch back to the scheduler.
+
 void scheduler(void) {
   struct proc *p;
   struct cpu *c = mycpu();
-
   c->proc = 0;
   for (;;) {
     // Avoid deadlock by ensuring that devices can interrupt.
@@ -431,7 +449,6 @@ void scheduler(void) {
         p->state = RUNNING;
         c->proc = p;
         swtch(&c->context, &p->context);
-
         // Process is done running for now.
         // It should have changed its p->state before coming back.
         c->proc = 0;
@@ -471,9 +488,23 @@ void sched(void) {
 // Give up the CPU for one scheduling round.
 void yield(void) {
   struct proc *p = myproc();
+  struct proc *next_proc = 0;
+  // 打印当前进程保存上下文的地址范围
+  printf("Save the context of the process to the memory region from address %p to %p\n", &p->context, ((char *)&p->context) + sizeof(p->context));
+  // 打印当前进程的pid和用户态pc
+  printf("Current running process pid is %d and user pc is %p\n", p->pid, p->trapframe->epc);
+  
+  // 让出CPU，调用sched调度其他进程
   acquire(&p->lock);
   p->state = RUNNABLE;
-  sched();
+  for (next_proc = proc; next_proc < &proc[NPROC]; next_proc++) {
+        if (next_proc->state == RUNNABLE && next_proc != p) {
+            printf("Next runnable process pid is %d and user pc is %p\n", 
+               next_proc->pid, (void *)next_proc->trapframe->epc);
+            break;
+        }
+    }
+  sched(); // 切换到另一个进程
   release(&p->lock);
 }
 

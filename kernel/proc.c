@@ -36,9 +36,11 @@ void procinit(void) {
     if (pa == 0) panic("kalloc");
     uint64 va = KSTACK((int)(p - proc));
     kvmmap(va, (uint64)pa, PGSIZE, PTE_R | PTE_W);
+    // 保存虚拟地址和物理地址到进程控制块中
     p->kstack = va;
+    p->kstack_pa = (uint64)pa;
   }
-  kvminithart();
+    kvminithart();
 }
 
 // Must be called with interrupts disabled,
@@ -117,9 +119,33 @@ found:
   p->context.ra = (uint64)forkret;
   p->context.sp = p->kstack + PGSIZE;
 
+  //设置内核页表，并将内核栈映射到页表中
+  p->k_pagetable = kvminit_new();
+  if(p->k_pagetable == 0){
+    freeproc(p);
+    release(&p->lock);
+    return 0;
+  }
+  // 映射内核栈
+  kvmmap_new(p->k_pagetable, p->kstack, p->kstack_pa, PGSIZE, PTE_R | PTE_W);
+
   return p;
 }
-
+// Free a process's page table, not free its leaf physical memory pages.
+void proc_freekpagetable(pagetable_t kpagetable, int flag)
+{
+  for(int i = 0; i < 512; i++){
+    pte_t pte = kpagetable[i];
+    if((pte & PTE_V)){
+      kpagetable[i] = 0;
+      if(flag > 0){
+        uint64 child = PTE2PA(pte);
+        proc_freekpagetable((pagetable_t)child, flag-1);
+      }
+    }
+  }
+  kfree((void*)kpagetable);
+}
 // free a proc structure and the data hanging from it,
 // including user pages.
 // p->lock must be held.
@@ -136,6 +162,17 @@ static void freeproc(struct proc *p) {
   p->killed = 0;
   p->xstate = 0;
   p->state = UNUSED;
+
+  // 将内核页表的前96项置零，避免重复回收
+  pagetable_t kpgtbl_sec = (pagetable_t) PTE2PA (p->k_pagetable[0]);
+  for (int i = 0; i < 96; i++) {
+    kpgtbl_sec[i] = 0;
+  }
+
+  //释放内核页表
+  if(p->k_pagetable)
+    proc_freekpagetable(p->k_pagetable, 2);
+  p->k_pagetable = 0;
 }
 
 // Create a user page table for a given process,
@@ -201,6 +238,7 @@ void userinit(void) {
   p->cwd = namei("/");
 
   p->state = RUNNABLE;
+  sync_pagetable(p->pagetable, p->k_pagetable);
 
   release(&p->lock);
 }
@@ -220,6 +258,7 @@ int growproc(int n) {
     sz = uvmdealloc(p->pagetable, sz, sz + n);
   }
   p->sz = sz;
+  sync_pagetable(p->pagetable, p->k_pagetable);
   return 0;
 }
 
@@ -261,6 +300,9 @@ int fork(void) {
   pid = np->pid;
 
   np->state = RUNNABLE;
+
+  //给子进程np 同步内核页表
+  sync_pagetable(np->pagetable, np->k_pagetable);
 
   release(&np->lock);
 
@@ -430,8 +472,10 @@ void scheduler(void) {
         // before jumping back to us.
         p->state = RUNNING;
         c->proc = p;
+        w_satp(MAKE_SATP(p->k_pagetable));
+        sfence_vma();
         swtch(&c->context, &p->context);
-
+        kvminithart();
         // Process is done running for now.
         // It should have changed its p->state before coming back.
         c->proc = 0;

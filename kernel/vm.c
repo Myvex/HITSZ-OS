@@ -505,6 +505,7 @@ void print_pagetable(pagetable_t pgtbl,int level,int index1, int index2, int ind
       else {
           // 叶子节点，打印虚拟地址
           va = (index1 << 30) | (index2 << 21) | (i<<12);
+          va &=(0x0000003FFFFFFFFF);
           printf("||idx: %d: va: %p -> pa: %p, flags: %s%s%s%s\n", i, (void *)va, (void *)pa, read_flag, write_flag, exec_flag, user_flag);
       }
     }
